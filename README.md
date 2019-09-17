@@ -1,1 +1,2 @@
-# ticket-gate
+# Ticket gate application
+
