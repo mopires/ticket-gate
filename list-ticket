@@ -1,0 +1,8 @@
+{
+	
+	1:{name: "matheus", inside: true, dread:"nao"},
+	2:{name: "ThalesSoccer", inside:true, dread:"nao"},
+	3:{name: "Andre", inside:true, dread:"sim"}
+
+
+}
