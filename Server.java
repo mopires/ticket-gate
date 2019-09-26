@@ -4,7 +4,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import org.json.*;
 
 public class Server {
 
@@ -48,20 +50,33 @@ public class Server {
     private boolean IsOpen(){
 
         //verifica disponibilidade
-        boolean[] spots = new boolean[10];
+        boolean[] spots;
+        GetList();
 
-        for (int i = 0; i < 10; i++) {
-            spots[i] = true;
-        }
-
-        for (int i = 0; i < spots.length; i++){
+        /*for (int i = 0; i < spots.length; i++){
             if (!spots[i]){
                 spots[i] = true;
                 return true;
             }
-        }
+        }*/
 
         return false;
+
+    }
+
+    private void GetList(){
+
+        JSONObject json = new JSONObject("spot.json");
+        //ArrayList<Boolean> list = new ArrayList<Boolean>();
+
+
+        /*
+        listTicket = new boolean[list.length()];
+        for (int i = 0; i < list.length();i++){
+            listTicket[i] = list.getBoolean(i);
+        }
+        */
+
 
     }
 
@@ -75,17 +90,25 @@ public class Server {
 
     public static void main(String argv[]){
 
+        Server server = new Server();
         try {
-            Server server = new Server();
             server.CreateServer(5555);
-            System.out.println("Waiting connection...");
-            Socket clientRequest = server.Wait();
-            System.out.println("Client connected.");
-            server.ProcessRequest(clientRequest);
-        }
-        catch (Exception ex){
+        }catch (Exception ex){
             System.out.println(" \n Exception: \n " + ex.getMessage());
         }
+
+            while (true){
+                try {
+                    System.out.println("Waiting connection...");
+                    Socket clientRequest = server.Wait();
+                    System.out.println("Client connected.");
+                    server.ProcessRequest(clientRequest);
+                }
+                catch (Exception ex){
+                    System.out.println(" \n Exception: \n " + ex.getMessage());
+                }
+            }
+
 
 
 
