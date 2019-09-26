@@ -7,7 +7,7 @@
 <li> verifica se há lugar para permitir a entrada</li>
 <li> Permite ou Não a entrada</li>
 <hr>
- ## Client-side
+## Client-side
 <li> Busca o servidor</li>
 <li> Conecta</li>
 <li> Enviar o ticket</li>
@@ -15,3 +15,4 @@
 <li> Busca o servidor</li>
 
 ### Problema ao requisitar o JSON para verificar se há lugar
+<li>Exception: A JSONObject text must begin with '{' at 1 [character 2 line 1]</li>
