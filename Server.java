@@ -19,15 +19,18 @@ public class Server {
 
     private void ProcessRequest(Socket socket){
 
+        String request, response;
+
         try{
             ObjectOutputStream output =
                     new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream input =
                     new ObjectInputStream(socket.getInputStream());
 
-            String request = input.readUTF();
-            System.out.println("Request received...");
-            output.writeUTF("The request was: " + request);
+            request = input.readUTF();
+            System.out.println("Processing request...");
+
+            output.writeBoolean(IsOpen());
             output.flush();
 
 
@@ -38,6 +41,21 @@ public class Server {
 
         }
 
+    }
+
+    private boolean IsOpen(){
+
+        //verifica disponibilidade
+
+        return true;
+
+    }
+
+    private boolean CheckIn(String Request){
+
+        //verificar o ingresso valido
+
+        return true;
     }
 
 
@@ -54,6 +72,8 @@ public class Server {
         catch (Exception ex){
             System.out.println(" \n Exception: \n " + ex.getMessage());
         }
+
+
 
 
     }

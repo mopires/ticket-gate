@@ -8,31 +8,33 @@ import java.util.logging.Logger;
 public class Client {
 
     public static void main(String[] args) {
-        try {
-            /*1.Estabelecer conexão com o servidor
-             * 2. Trocar mensagens com o servidor
-             */
-            // cria a conexão entre o cliente e o servidor.
-            System.out.println("Estabelecendo conexão...");
-            Socket socket = new Socket("localhost",5555);
-            System.out.println("Conexão estabelecida.");
 
-            // criação dos streams de entrada e saída
+        try {
+
+            System.out.println("Connecting...");
+            Socket socket = new Socket("localhost",5555);
+            System.out.println("Connected.");
+
             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 
-            System.out.println("Enviando mensagem...");
-            String msg = "HELLO";
-            output.writeUTF(msg);
-            output.flush(); //libera buffer para envio
+            String request = "banana"; //ingresso
 
-            msg = input.readUTF();
-            System.out.println(msg);
+            output.writeUTF(request);
+            output.flush();
+            System.out.println("\n * Resquesting * \n");
+            boolean response = input.readBoolean();
+
+            if (!response){
+                System.out.println("\n * Access Denied * \n");
+            }else
+                System.out.println("\n * Access Granted * \n");
+
+
 
             input.close();
             output.close();
             socket.close();
-
 
         } catch (IOException ex) {
             System.out.println("Erro no cliente: "+ ex.getMessage());
