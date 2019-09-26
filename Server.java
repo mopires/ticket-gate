@@ -26,7 +26,11 @@ public class Server {
                     new ObjectInputStream(socket.getInputStream());
 
             String request = input.readUTF();
+            System.out.println("Request received...");
             output.writeUTF("The request was: " + request);
+            output.flush();
+
+
         }
         catch (IOException ex){
 
