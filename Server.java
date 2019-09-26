@@ -47,7 +47,7 @@ public class Server {
 
         //verifica disponibilidade
 
-        return true;
+        return false;
 
     }
 

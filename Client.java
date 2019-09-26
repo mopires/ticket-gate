@@ -18,11 +18,11 @@ public class Client {
             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 
-            String request = "banana"; //ingresso
+            String request = "ticket"; //ingresso
 
             output.writeUTF(request);
             output.flush();
-            System.out.println("\n * Resquesting * \n");
+            System.out.println("Submiting...");
             boolean response = input.readBoolean();
 
             if (!response){
