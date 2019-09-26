@@ -12,7 +12,3 @@
 <li> Conecta</li>
 <li> Enviar o ticket</li>
 <li> Espera a resposta</li>
-<li> Busca o servidor</li>
-
-### Problema ao requisitar o JSON para verificar se há lugar
-<li>Exception: A JSONObject text must begin with '{' at 1 [character 2 line 1]</li>
