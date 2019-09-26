@@ -1,7 +1,5 @@
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.net.*;
 import java.util.ArrayList;
@@ -51,31 +49,41 @@ public class Server {
 
         //verifica disponibilidade
         boolean[] spots;
-        GetList();
+        try {
 
-        /*for (int i = 0; i < spots.length; i++){
-            if (!spots[i]){
-                spots[i] = true;
-                return true;
+            boolean[] list = GetList();
+
+            for (int i = 0; i < list.length; i++){
+                if (!list[i]){
+                    list[i] = true;
+                    //write on json file
+                    return true;
+                }
             }
-        }*/
+        }catch (IOException ex){
+            System.out.println(ex.getStackTrace());
+        }
+
 
         return false;
 
     }
 
-    private void GetList(){
+    private boolean[] GetList() throws FileNotFoundException {
 
-        JSONObject json = new JSONObject("spot.json");
+        InputStream file = new FileInputStream("/home/matheus/IdeaProjects/Server/src/spots.json");
+        JSONObject json = new JSONObject(file);
         //ArrayList<Boolean> list = new ArrayList<Boolean>();
+        JSONArray jsonArray = json.names();
 
 
-        /*
-        listTicket = new boolean[list.length()];
-        for (int i = 0; i < list.length();i++){
-            listTicket[i] = list.getBoolean(i);
+        boolean[] list = new boolean[jsonArray.length()];
+        for (int i = 0; i < jsonArray.length();i++){
+            list[i] = Boolean.valueOf(jsonArray.getString(i));
         }
-        */
+
+
+        return list;
 
 
     }
