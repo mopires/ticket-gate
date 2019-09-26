@@ -2,7 +2,9 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.net.*;
+import java.util.Arrays;
 
 public class Server {
 
@@ -46,6 +48,18 @@ public class Server {
     private boolean IsOpen(){
 
         //verifica disponibilidade
+        boolean[] spots = new boolean[10];
+
+        for (int i = 0; i < 10; i++) {
+            spots[i] = true;
+        }
+
+        for (int i = 0; i < spots.length; i++){
+            if (!spots[i]){
+                spots[i] = true;
+                return true;
+            }
+        }
 
         return false;
 
