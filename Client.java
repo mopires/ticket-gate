@@ -27,7 +27,7 @@ public class Client {
             output.flush(); //libera buffer para envio
 
             msg = input.readUTF();
-            System.out.println("Resposta: " + msg);
+            System.out.println(msg);
 
             input.close();
             output.close();
