@@ -38,9 +38,7 @@ public class Server {
 
         }
         catch (IOException ex){
-
             System.out.println(ex.getMessage());
-
         }
 
     }
@@ -48,52 +46,50 @@ public class Server {
     private boolean IsOpen(){
 
         //verifica disponibilidade
-        boolean[] spots;
-        try {
-
-            boolean[] list = GetList();
+        /*boolean[] list = GetList();
+        if (list == null) {
+            System.out.println("Error: Fail to retrieve the list of tickets");
+            return false;
+        }else{
 
             for (int i = 0; i < list.length; i++){
                 if (!list[i]){
-                    list[i] = true;
-                    //write on json file
+                    System.out.println(list[i]);
                     return true;
                 }
+                else
+                    return false;
             }
-        }catch (IOException ex){
-            System.out.println(ex.getStackTrace());
-        }
 
-
-        return false;
-
+        }*/
+        return true;
     }
 
-    private boolean[] GetList() throws FileNotFoundException {
+    private boolean[] GetList() {
+        boolean[] list = null;
+        try {
 
-        InputStream file = new FileInputStream("/home/matheus/IdeaProjects/Server/src/spots.json");
-        JSONObject json = new JSONObject(file);
-        //ArrayList<Boolean> list = new ArrayList<Boolean>();
-        JSONArray jsonArray = json.names();
+            InputStream file = new FileInputStream("/home/matheus/IdeaProjects/Server/src/spots.json");
+            JSONObject json = new JSONObject(file);
+            JSONArray jsonArray = json.getJSONArray("");
+            list = new boolean[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length();i++){
+                list[i] = jsonArray.getBoolean(i);
+            }
 
-
-        boolean[] list = new boolean[jsonArray.length()];
-        for (int i = 0; i < jsonArray.length();i++){
-            list[i] = Boolean.valueOf(jsonArray.getString(i));
+        }catch (FileNotFoundException ex){
+            System.out.println(ex.getMessage());
         }
-
 
         return list;
-
-
     }
 
-    private boolean CheckIn(String Request){
+    /*private boolean CheckIn(String Request){
 
         //verificar o ingresso valido
 
         return true;
-    }
+    }*/
 
 
     public static void main(String argv[]){
