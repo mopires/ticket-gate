@@ -1,14 +1,16 @@
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 
-public class Server {
+public class Server extends Thread{
 
     private ServerSocket serverSocket;
 
@@ -17,6 +19,7 @@ public class Server {
     }
 
     private Socket Wait() throws IOException {
+        //wait until the someone connect
         Socket socket = serverSocket.accept();
         return socket;
     }
@@ -103,20 +106,22 @@ public class Server {
             json = (JSONObject) parser.parse(
                     new FileReader("/home/matheus/IdeaProjects/Server/src/spots.json"));
 
-            //arrumar aqui para escrever certo
-            HashMap<String, boolean[]> updateList = new HashMap<>();
+            //transforma o list em um map para poder colocar todas posicoes no json
+            HashMap<String, List<Boolean>> updateList = new HashMap<>();
+            updateList.put("ticket", new ArrayList<Boolean>());
 
-            updateList.put("ticket",list);
+            for (int i = 0; i < list.length; i++){
+                updateList.get("ticket").add(Boolean.valueOf(list[i]));
+            }
 
             json.putAll(updateList);
-            JSONArray jsonArray = new JSONArray();
-            jsonArray.add(json);
-
+            //JSONArray jsonArray = new JSONArray();
+            //jsonArray.add(json);
 
             FileWriter file =
                     new FileWriter("/home/matheus/IdeaProjects/Server/src/spots.json");
 
-            file.write(jsonArray.toString());//ele escreve isso no lugar Z@5f2050f6
+            file.write(json.toJSONString());
             file.flush();
 
         } catch (FileNotFoundException ex) {
