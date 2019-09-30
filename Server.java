@@ -26,24 +26,24 @@ public class Server extends Thread{
 
     private void ProcessRequest(Socket socket) {
 
-        String request, response;
+            String request, response;
+            try {
+                ObjectOutputStream output =
+                        new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream input =
+                        new ObjectInputStream(socket.getInputStream());
 
-        try {
-            ObjectOutputStream output =
-                    new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream input =
-                    new ObjectInputStream(socket.getInputStream());
+                request = input.readUTF();
+                System.out.println("Processing request...");
 
-            request = input.readUTF();
-            System.out.println("Processing request...");
-
-            output.writeBoolean(IsOpen());
-            output.flush();
+                output.writeBoolean(IsOpen());
+                output.flush();
 
 
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+
 
     }
 
@@ -57,8 +57,9 @@ public class Server extends Thread{
 
             if (!list[i]) {
                 list[i] = true; // fill the spot
-                CheckIn(list);
-                rt = true; //return true  to allow entrance
+                Checkin checkin = new Checkin(list);
+                new Thread(checkin).start();
+                rt = true; //return 'true' to allow entrance
                 break;
             }
         }
@@ -94,10 +95,10 @@ public class Server extends Thread{
         return list;
     }
 
-    private void CheckIn(boolean[] list) {
+    private void CheckIn(boolean[] list) { //deprecated
 
-        //write on spots.json new customer
         JSONObject json;
+        //write on spots.json new customer
         //Cria o parse de tratamento
         JSONParser parser = new JSONParser();
 
@@ -110,7 +111,7 @@ public class Server extends Thread{
             HashMap<String, List<Boolean>> updateList = new HashMap<>();
             updateList.put("ticket", new ArrayList<Boolean>());
 
-            for (int i = 0; i < list.length; i++){
+            for (int i = 0; i < list.length; i++) {
                 updateList.get("ticket").add(Boolean.valueOf(list[i]));
             }
 
