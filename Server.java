@@ -95,7 +95,7 @@ public class Server extends Thread{
         return list;
     }
 
-    private void CheckIn(boolean[] list) { //deprecated
+    /*private void CheckIn(boolean[] list) { //deprecated
 
         JSONObject json;
         //write on spots.json new customer
@@ -133,7 +133,7 @@ public class Server extends Thread{
             e.printStackTrace();
         }
 
-    }
+    }*/
 
 
     public static void main(String argv[]) {
